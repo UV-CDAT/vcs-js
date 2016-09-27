@@ -35,65 +35,23 @@ import vtk
 from vtk.web import protocols, server
 from vtk.web import wamp as vtk_wamp
 
-from netCDF4 import Dataset
-
-
-class NetCDFFileHandler(protocols.vtkWebProtocol):
-    """List variables from a given netcdf file.
-
-    This is just an example protocol... need to rewrite with cdms2, support
-    caching, etc.
-    """
-
-    @register('file.netcdf.variables')
-    def variables(self, file_name):
-        nc = Dataset(file_name)
-        return nc.variables.keys()
-
+# import protocols
+from FileLoader import FileLoader
+from Visualizer import Visualizer
 
 class _VCSApp(vtk_wamp.ServerProtocol):
 
     # Application configuration
-    view = None
     rootDir = '.'
     authKey = "vtkweb-secret"
 
     def initialize(self):
-        global renderer, renderWindow, renderWindowInteractor, cone, mapper, actor
-
-        # Bring used components
         self.registerVtkWebProtocol(protocols.vtkWebMouseHandler())
         self.registerVtkWebProtocol(protocols.vtkWebViewPort())
         self.registerVtkWebProtocol(protocols.vtkWebViewPortImageDelivery())
         self.registerVtkWebProtocol(protocols.vtkWebFileBrowser(self.rootDir, 'Home'))
-        self.registerVtkWebProtocol(NetCDFFileHandler())
-
-        # Create default pipeline (Only once for all the session)
-        if not _VCSApp.view:
-            # VTK specific code
-            renderer = vtk.vtkRenderer()
-            renderWindow = vtk.vtkRenderWindow()
-            renderWindow.AddRenderer(renderer)
-
-            renderWindowInteractor = vtk.vtkRenderWindowInteractor()
-            renderWindowInteractor.SetRenderWindow(renderWindow)
-            renderWindowInteractor.GetInteractorStyle().SetCurrentStyleToTrackballCamera()
-
-            cone = vtk.vtkConeSource()
-            mapper = vtk.vtkPolyDataMapper()
-            actor = vtk.vtkActor()
-
-            mapper.SetInputConnection(cone.GetOutputPort())
-            actor.SetMapper(mapper)
-
-            renderer.AddActor(actor)
-            renderer.ResetCamera()
-            renderWindow.Render()
-
-            # VTK Web application specific
-            _VCSApp.view = renderWindow
-            self.Application.GetObjectIdMap().SetActiveObject("VIEW", renderWindow)
-
+        self.registerVtkWebProtocol(FileLoader())
+        self.registerVtkWebProtocol(Visualizer())
 
 if __name__ == "__main__":
     # Create argument parser

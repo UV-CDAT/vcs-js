@@ -10,5 +10,6 @@ module.exports = {
     'no-param-reassign': [2, { props: false }],
     'no-unused-vars': [2, { args: 'none' }],
     'import/no-extraneous-dependencies': 0,
+    'import/prefer-default-export': 0,
   },
 };

@@ -3,14 +3,28 @@
 
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset = UTF-8">
-  <link rel="stylesheet" type="text/css" href="demo.css">
+    <link rel="stylesheet" type="text/css" href="demo.css">
 </head>
-
 <body>
-  <div class="vcs-plot" id="vcs-plot-1"></div>
-  <div class="vcs-plot" id="vcs-plot-2"></div>
+  <table>
+    <tr>
+      <td><div class="plot" id="vcs-isofill"></div></td>
+      <td><div class="plot" id="plotly-isofill"></div></td>
+    </tr>
+    <tr>
+      <td><div class="plot" id="vcs-vector"></div></td>
+      <td><div class="plot" id="vcs-vector-subset"></div></td>
+    </tr>
+  </table>
   <script type="text/javascript" src="../dist/vcs.js"></script>
   <script type="text/javascript" src="demo.js"></script>
+    
+  <ul>
+    <!-- Need a 3D variable for this: <li><a onclick="cdat.create_plot('http://test.opendap.org/opendap/data/nc/coads_climatology.nc', 'AIRT', '3d_scalar', 'default', 'default')" href="javascript:void(0)">Volume example</a></li> -->
+    <li><a onclick="print_variables('coads_climatology.nc')" href="javascript:void(0)">Rectilinear grid variables example</a></li>
+    <li><a onclick="print_variables('clt.nc')" href="javascript:void(0)">clt.nc variables example</a></li>
+    <li><a onclick="print_variables('sampleCurveGrid4.nc')" href="javascript:void(0)">Curvilinear grid variable example</a></li>
+    <li><a onclick="print_variables('sampleGenGrid3.nc')" href="javascript:void(0)">Generic grid variable example</a></li>
 </body>
 
 </html>

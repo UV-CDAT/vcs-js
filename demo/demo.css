@@ -1,18 +1,5 @@
-html,body {
-    width: 100%;
-    height: 100%;
-    margin: 0;
-    overflow: hidden;
+.plot {
+    height: 600px;
+    width: 800px;
 }
 
-#vcs-plot-1 {
-    height: 100%;
-    width: 48%;
-    float: left;
-}
-
-#vcs-plot-2 {
-    height: 100%;
-    width: 48%;
-    float: right;
-}
