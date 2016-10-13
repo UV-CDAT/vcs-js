@@ -30,14 +30,15 @@ export default (url, username, password) => {
 
   const session = {
     close() {
-      return connectionPromise.then((connection) => connection.destroy());
+      return connectionPromise.then((connection) => { connection.destroy(); });
     },
 
     files(path) {
       return pvw
-        .then((client) => client.FileListing.listServerDirectory(path))
+        .then((client) => { client.FileListing.listServerDirectory(path); })
         .then((filesObject) => {
-          return filesObject.files.map((file) => createFile(session, file.label));
+          return filesObject.files.map(
+            (file) => { return createFile(session, file.label); });
         });
     },
 
@@ -84,7 +85,7 @@ export default (url, username, password) => {
           if (this.windowId) {
             console.log(`close canvas ${this.windowId}`);
             this.session.client().then(
-              (client) => client.session.call('cdat.view.close', [this.windowId]));
+              (client) => { client.session.call('cdat.view.close', [this.windowId]); });
           }
         },
       };

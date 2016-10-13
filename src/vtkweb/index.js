@@ -29,7 +29,7 @@ export default function remoteRender(canvas, dataSpec, template,
           }];
         } else {
           dataSpec.variables = [];
-          for (let i = 0; i < dataSpec.variable.length; ++i) {
+          for (let i = 0; i < dataSpec.variable.length; i += 1) {
             dataSpec.variables.push({
               name: dataSpec.variable[i],
               file: dataSpec.file,
@@ -37,7 +37,7 @@ export default function remoteRender(canvas, dataSpec, template,
           }
         }
         if (dataSpec.subset) {
-          for (let i = 0; i < dataSpec.variables.length; ++i) {
+          for (let i = 0; i < dataSpec.variables.length; i += 1) {
             const v = dataSpec.variables[i];
             v.subset = dataSpec.subset;
           }

@@ -8,7 +8,7 @@ export default (session, fileName) => {
 
     variables() {
       return this.session.client()
-        .then((client) => client.session.call('cdat.file.variables', [fileName]));
+        .then((client) => { client.session.call('cdat.file.variables', [fileName]); });
     },
 
     createData(variable, subset) {
